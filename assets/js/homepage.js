@@ -4,6 +4,8 @@ var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 
+var languageButtonEl = document.querySelector("#language-buttons");
+
 var getUserRepos = function (user) {
     //console.log("function was called");
 
@@ -74,6 +76,7 @@ var displayRepos = function (repos, searchTerm) {
     // clear old content
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
+    
     // loop over repos
     for (var i = 0; i < repos.length; i++) {
         // format repo name
@@ -116,7 +119,7 @@ var getFeaturedRepos = function (language) {
 
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
-            response.json().then(function(data) {
+            response.json().then(function (data) {
                 //console.log(data)
                 displayRepos(data.items, language);
             });
@@ -128,6 +131,11 @@ var getFeaturedRepos = function (language) {
     });
 };
 
+var buttonClickHandler = function (event) {
+    var language = event.target.getAttribute("data-language");
+    console.log(language);
+};
+
 userFormEl.addEventListener("submit", formSubmitHandler);
 
-
+languageButtonsEl.addEventListener("click", buttonClickHandler);
